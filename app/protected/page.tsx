@@ -15,9 +15,20 @@ export default async function ProtectedPage() {
     .select("*")
     .eq("owner_id", userInfo.id);
 
+  const { data: myOrders } = await supabase
+    .from("order")
+    .select("*")
+    .eq("user_id", userInfo.id);
+
   if (!userInfo) {
     return redirect("/sign-up");
   }
+
+  if (userInfo.user_type === "farmer" && myFarms?.length === 1) {
+    redirect(`/farm/${myFarms[0].id}`);
+  }
+
+  redirect(`/order`);
 
   return (
     <div className="flex-1 w-full flex flex-col gap-12">
@@ -38,6 +49,13 @@ export default async function ProtectedPage() {
         <h2 className="font-bold text-2xl mb-4">Your products</h2>
         <pre className="text-xs font-mono p-3 rounded border max-h-32 overflow-auto">
           {JSON.stringify(myProducts, null, 2)}
+        </pre>
+      </div>
+
+      <div className="flex flex-col gap-2 items-start">
+        <h2 className="font-bold text-2xl mb-4">Your orders</h2>
+        <pre className="text-xs font-mono p-3 rounded border max-h-32 overflow-auto">
+          {JSON.stringify(myOrders, null, 2)}
         </pre>
       </div>
     </div>

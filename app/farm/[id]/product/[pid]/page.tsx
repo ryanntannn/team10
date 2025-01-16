@@ -1,9 +1,10 @@
+import BackButton from "@/components/back-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getUserInfo } from "@/utils/supabase/use-user-info";
 import { Label } from "@radix-ui/react-label";
-import { Clock, DollarSign, Map, Truck } from "lucide-react";
+import { Clock, DollarSign, Edit, Map, Truck } from "lucide-react";
 import Form from "next/form";
 import Link from "next/link";
 
@@ -37,11 +38,22 @@ export default async function FarmProductPage({
   return (
     <div className="w-full flex flex-col gap-4">
       <div>
+        <BackButton />
+      </div>
+      <div>
         <h1 className="text-2xl font-medium">{product.display_name}</h1>
         <p className="text-muted-foreground">
           from <Link href={`/farm/${farm.id}`}>{farm.display_name}</Link>
         </p>
       </div>
+      {isFarmOwner && (
+        <Link href={`/farm/${farm.id}/product/${product.id}/edit`}>
+          <Button size="sm" className="gap-2">
+            <Edit className="w-4 h-4" />
+            Edit
+          </Button>
+        </Link>
+      )}
       <div>
         <p className="text-sm text-muted-foreground">
           <span className="text-lg font-medium text-black">
@@ -60,7 +72,7 @@ export default async function FarmProductPage({
       )}
       <div className="flex flex-col lg:flex-row items-start">
         <Form
-          action={""}
+          action={`${product.id}/confirm`}
           className="p-4 border rounded-lg flex flex-col gap-5 flex-grow w-full">
           <div className="text-xl font-medium">One time order</div>
           <div>
@@ -78,11 +90,11 @@ export default async function FarmProductPage({
             <Input name="quantity" type="number" />
           </div>
           <div>
-            <Label htmlFor="quantity">Collection Time</Label>
+            <Label htmlFor="collection_date">Collection Time</Label>
             <br />
             <input
               className="bg-transparent border rounded-md p-2"
-              name="quantity"
+              name="collection_date"
               type="datetime-local"
             />
           </div>

@@ -36,6 +36,60 @@ export type Database = {
         }
         Relationships: []
       }
+      order: {
+        Row: {
+          collection_date: string | null
+          created_at: string
+          farm_id: number | null
+          id: number
+          price_per_unit: number
+          product_id: number
+          quantity: number | null
+          status: Database["public"]["Enums"]["order_status"]
+          unit_type: Database["public"]["Enums"]["unit_of_measurement"]
+          user_id: string
+        }
+        Insert: {
+          collection_date?: string | null
+          created_at?: string
+          farm_id?: number | null
+          id?: number
+          price_per_unit?: number
+          product_id: number
+          quantity?: number | null
+          status?: Database["public"]["Enums"]["order_status"]
+          unit_type?: Database["public"]["Enums"]["unit_of_measurement"]
+          user_id: string
+        }
+        Update: {
+          collection_date?: string | null
+          created_at?: string
+          farm_id?: number | null
+          id?: number
+          price_per_unit?: number
+          product_id?: number
+          quantity?: number | null
+          status?: Database["public"]["Enums"]["order_status"]
+          unit_type?: Database["public"]["Enums"]["unit_of_measurement"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_farm_id_fkey"
+            columns: ["farm_id"]
+            isOneToOne: false
+            referencedRelation: "farm"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "product"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       product: {
         Row: {
           created_at: string
@@ -109,6 +163,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      order_status: "pending_approval" | "approved" | "rejected" | "collected"
       unit_of_measurement: "unit" | "kg" | "ml"
       user_type: "farmer" | "customer"
     }

@@ -1,26 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { getUserInfo } from "@/utils/supabase/use-user-info";
-import { Map } from "lucide-react";
+import { Edit, Map } from "lucide-react";
 import Link from "next/link";
-
-const MOCK_PRODUCTS = [
-  {
-    id: 1,
-    display_name: "Carrots",
-    description: "Freshly picked from the ground",
-    quantity_available: 10,
-    price_per_unit: 15000,
-    unit_type: "unit",
-  },
-  {
-    id: 2,
-    display_name: "Tomatoes",
-    description: "Juicy and ripe",
-    quantity_available: 0,
-    price_per_unit: 20000,
-    unit_type: "unit",
-  },
-];
 
 export default async function FarmPage({
   params,
@@ -61,6 +42,21 @@ export default async function FarmPage({
             {farm.address}
           </div>
         )}
+        {isFarmOwner && (
+          <div className="flex flex-row gap-2">
+            <Link href={`/farm/${id}/edit`}>
+              <Button size="sm" className="gap-2 mt-4">
+                <Edit className="w-4 h-4" />
+                Edit Farm Information
+              </Button>
+            </Link>
+            <Link href={`/farm/${id}/order`}>
+              <Button size="sm" className="gap-2 mt-4">
+                View Orders
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {products.map((product) => (
@@ -78,13 +74,20 @@ export default async function FarmPage({
             </div>
           </Link>
         ))}
+        {isFarmOwner && products.length > 0 && (
+          <Link href={`/farm/${id}/product/new`}>
+            <Button variant="secondary" className="w-full h-full">
+              + Add a new product
+            </Button>
+          </Link>
+        )}
       </div>
       {products.length === 0 && (
         <div className="border rounded-lg p-8 text-muted-foreground bg-muted flex flex-col gap-4">
           No products available
           {isFarmOwner && (
             <Link href={`/farm/${id}/product/new`}>
-              <Button>+ Add a product</Button>
+              <Button>+ Add your first</Button>
             </Link>
           )}
         </div>
