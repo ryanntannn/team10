@@ -1,37 +1,44 @@
-import FetchDataSteps from "@/components/tutorial/fetch-data-steps";
-import { createClient } from "@/utils/supabase/server";
+import { getUserInfo } from "@/utils/supabase/use-user-info";
 import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 
 export default async function ProtectedPage() {
-  const supabase = await createClient();
+  const { userInfo, supabase } = await getUserInfo();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data: myFarms } = await supabase
+    .from("farm")
+    .select("*")
+    .eq("owner_id", userInfo.id);
 
-  if (!user) {
-    return redirect("/sign-in");
+  const { data: myProducts } = await supabase
+    .from("product")
+    .select("*")
+    .eq("owner_id", userInfo.id);
+
+  if (!userInfo) {
+    return redirect("/sign-up");
   }
 
   return (
     <div className="flex-1 w-full flex flex-col gap-12">
-      <div className="w-full">
-        <div className="bg-accent text-sm p-3 px-5 rounded-md text-foreground flex gap-3 items-center">
-          <InfoIcon size="16" strokeWidth={2} />
-          This is a protected page that you can only see as an authenticated
-          user
-        </div>
-      </div>
       <div className="flex flex-col gap-2 items-start">
         <h2 className="font-bold text-2xl mb-4">Your user details</h2>
         <pre className="text-xs font-mono p-3 rounded border max-h-32 overflow-auto">
-          {JSON.stringify(user, null, 2)}
+          {JSON.stringify(userInfo, null, 2)}
         </pre>
       </div>
-      <div>
-        <h2 className="font-bold text-2xl mb-4">Next steps</h2>
-        <FetchDataSteps />
+      <div className="flex flex-col gap-2 items-start">
+        <h2 className="font-bold text-2xl mb-4">Your farms</h2>
+        <pre className="text-xs font-mono p-3 rounded border max-h-32 overflow-auto">
+          {JSON.stringify(myFarms, null, 2)}
+        </pre>
+      </div>
+
+      <div className="flex flex-col gap-2 items-start">
+        <h2 className="font-bold text-2xl mb-4">Your products</h2>
+        <pre className="text-xs font-mono p-3 rounded border max-h-32 overflow-auto">
+          {JSON.stringify(myProducts, null, 2)}
+        </pre>
       </div>
     </div>
   );
