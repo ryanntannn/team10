@@ -25,7 +25,8 @@ export default async function Orders() {
 `
     )
     .eq("user_id", userInfo?.id)
-    .order("collection_date", { ascending: true });
+    .order("collection_date", { ascending: true })
+    .order("status", { ascending: true });
 
   if (!orders) {
     return <div>No orders found</div>;

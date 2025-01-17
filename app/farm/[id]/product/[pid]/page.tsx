@@ -1,4 +1,5 @@
 import BackButton from "@/components/back-button";
+import { SubmitButton } from "@/components/submit-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -98,7 +99,7 @@ export default async function FarmProductPage({
               type="datetime-local"
             />
           </div>
-          <Button type="submit">Next</Button>
+          <SubmitButton type="submit">Next</SubmitButton>
         </Form>
         <div className="p-4">or</div>
         <Form
