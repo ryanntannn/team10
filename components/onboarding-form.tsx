@@ -6,6 +6,7 @@ import { Database } from "@/utils/supabase/database.types";
 import { useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
+import { SubmitButton } from "./submit-button";
 
 const supabase = createClient();
 type UserType = Database["public"]["Enums"]["user_type"];
@@ -67,7 +68,7 @@ export function OnboardingForm() {
           <span className="text-xs ml-2"> (I want to buy goods)</span>
         </Button>
       </div>
-      <Button
+      <SubmitButton
         onClick={() => {
           if (!userType) return;
           submit(userType);
@@ -80,7 +81,7 @@ export function OnboardingForm() {
           : userType === "farmer"
             ? "Join as farmer"
             : "Join as customer"}
-      </Button>
+      </SubmitButton>
     </>
   );
 }

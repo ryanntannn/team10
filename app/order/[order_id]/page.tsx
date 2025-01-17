@@ -13,6 +13,7 @@ import {
 } from "./actions";
 import { OrderStatusBadge } from "@/components/order-status-badge";
 import BackButton from "@/components/back-button";
+import { SubmitButton } from "@/components/submit-button";
 
 export default async function Orders({
   params,
@@ -101,31 +102,31 @@ export default async function Orders({
           {order.status === "pending_approval" && (
             <Form action={approveOrder} className="flex flex-col gap-4">
               <input type="hidden" name="order_id" value={order.id} />
-              <Button type="submit">Confirm this order</Button>
+              <SubmitButton type="submit">Confirm this order</SubmitButton>
             </Form>
           )}
           {order.status === "approved" && (
             <Form action={collectedOrder} className="flex flex-col gap-4">
               <input type="hidden" name="order_id" value={order.id} />
-              <Button type="submit" variant="default">
+              <SubmitButton type="submit" variant="default">
                 Order has been collected
-              </Button>
+              </SubmitButton>
             </Form>
           )}
           {order.status === "pending_approval" && (
             <Form action={rejectOrder} className="flex flex-col gap-4">
               <input type="hidden" name="order_id" value={order.id} />
-              <Button type="submit" variant="destructive">
+              <SubmitButton type="submit" variant="destructive">
                 Reject this order
-              </Button>
+              </SubmitButton>
             </Form>
           )}
           {order.status !== "pending_approval" && (
             <Form action={revertToPending} className="flex flex-col gap-4">
               <input type="hidden" name="order_id" value={order.id} />
-              <Button type="submit" variant="outline">
+              <SubmitButton type="submit" variant="outline">
                 Revert to pending
-              </Button>
+              </SubmitButton>
             </Form>
           )}
         </div>

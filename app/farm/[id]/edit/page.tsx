@@ -1,4 +1,5 @@
 import { createFarm, updateFarm } from "@/app/farm/actions";
+import { SubmitButton } from "@/components/submit-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -49,7 +50,7 @@ export default async function EditFarmPage({
           />
         </div>
         <div className="flex flex-row gap-2">
-          <Button type="submit">Update Farm Information</Button>
+          <SubmitButton type="submit">Update Farm Information</SubmitButton>
           <Link href={`/farm/${farm.id}`}>
             <Button variant="secondary">Cancel</Button>
           </Link>

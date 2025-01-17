@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "./ui/input";
 import { useState } from "react";
+import { SubmitButton } from "./submit-button";
 
 export function ConfirmButton({ backHref }: { backHref?: string }) {
   const [confirmed, setConfirmed] = useState(false);
@@ -22,9 +23,9 @@ export function ConfirmButton({ backHref }: { backHref?: string }) {
         <Label>I have verified my order details</Label>
       </div>
       <div className="flex flex-row gap-2">
-        <Button disabled={!confirmed} type="submit">
+        <SubmitButton disabled={!confirmed} type="submit">
           Confirm order
-        </Button>
+        </SubmitButton>
         {backHref && (
           <Link href={backHref}>
             <Button type="button" variant="outline">

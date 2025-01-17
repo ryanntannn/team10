@@ -1,4 +1,5 @@
 import { createFarm } from "@/app/farm/actions";
+import { SubmitButton } from "@/components/submit-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,7 +27,7 @@ export default async function Onboarding() {
           <Label htmlFor="description">Description</Label>
           <Input name="description" />
         </div>
-        <Button type="submit">Create Farm</Button>
+        <SubmitButton type="submit">Create Farm</SubmitButton>
       </Form>
     </div>
   );
