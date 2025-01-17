@@ -45,7 +45,7 @@ export default async function FarmOrders({
     )
     .eq("farm_id", farmId)
     .order("collection_date", { ascending: false })
-    .order("status", { ascending: false });
+    .order("status", { ascending: true });
 
   if (!orders) {
     return <div>No orders found</div>;

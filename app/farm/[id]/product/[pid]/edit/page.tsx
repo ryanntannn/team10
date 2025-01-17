@@ -1,4 +1,6 @@
 import { createProduct, updateProduct } from "@/app/farm/actions";
+import BackButton from "@/components/back-button";
+import { SubmitButton } from "@/components/submit-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -41,6 +43,9 @@ export default async function FarmProductEditPage({
 
   return (
     <div className="w-full flex flex-col gap-4">
+      <div>
+        <BackButton />
+      </div>
       <h1 className="text-3xl font-semibold">Update farm details</h1>
 
       <Form action={updateProduct} className="flex flex-col gap-4">
@@ -96,10 +101,7 @@ export default async function FarmProductEditPage({
           />
         </div>
         <div className="flex flex-row gap-2">
-          <Button type="submit">Update product</Button>
-          <Button variant="outline" type="button">
-            Cancel
-          </Button>
+          <SubmitButton type="submit">Update product</SubmitButton>
         </div>
       </Form>
     </div>
