@@ -41,7 +41,7 @@ export default async function ProtectedPage() {
     return redirect("/sign-up");
   }
 
-  if (userInfo.user_type === "farmer" && myFarms?.length === 1) {
+  if (userInfo.user_type === "farmer" && myFarms && myFarms.length > 0) {
     redirect(`/farm/${myFarms[0].id}`);
   }
 

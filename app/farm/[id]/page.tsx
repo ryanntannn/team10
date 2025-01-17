@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { getUserInfo } from "@/utils/supabase/use-user-info";
-import { Edit, Map } from "lucide-react";
+import { BarChart, Edit, Map } from "lucide-react";
 import Link from "next/link";
 
 export default async function FarmPage({
@@ -53,6 +53,12 @@ export default async function FarmPage({
             <Link href={`/farm/${id}/order`}>
               <Button size="sm" className="gap-2 mt-4">
                 View Orders
+              </Button>
+            </Link>
+            <Link href={`https://blank-app-infxw0u9fkb.streamlit.app/Test2`}>
+              <Button size="sm" className="gap-2 mt-4">
+                <BarChart className="w-4 h-4" />
+                Analytics Dashboard
               </Button>
             </Link>
           </div>
